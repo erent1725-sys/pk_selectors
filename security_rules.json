@@ -1,0 +1,137 @@
+{
+  "version": "1.0.0",
+  "login": {
+    "login_url": "https://www.sahibinden.com/giris",
+    "login_url_patterns": [
+      "/giris",
+      "/login",
+      "/signin",
+      "/auth/login",
+      "/uye/giris",
+      "secure.sahibinden.com/giris"
+    ],
+    "login_url_hints": ["login", "giris", "uye", "signin", "auth"],
+    "login_title_terms": ["giriş", "login", "üye girişi", "oturum aç"],
+    "login_dom_selectors": [
+      "a[href*=\"/giris\"]",
+      "a[href*=\"/login\"]",
+      "[class*=\"login-btn\"]",
+      "[id*=\"login-button\"]"
+    ],
+    "post_login_url_patterns": [
+      "banaozel",
+      "bana-ozel",
+      "hesabim",
+      "profilim",
+      "my-account",
+      "checkloading",
+      "kullanici",
+      "uyelik"
+    ]
+  },
+  "captcha": {
+    "captcha_url_patterns": [
+      "/captcha",
+      "/challenge",
+      "/verify",
+      "/security-check",
+      "/dogrulama",
+      "/cdn-cgi/challenge",
+      "challenges.cloudflare.com",
+      "cf-chl-bypass",
+      "cf_chl_prog",
+      "hcaptcha.com",
+      "recaptcha",
+      "turnstile"
+    ],
+    "critical_texts": [
+      "butona basılı tut",
+      "butona basili tut",
+      "basılı tutun",
+      "press and hold",
+      "hold the button",
+      "robot olmadığınızı doğrulayın",
+      "i'm not a robot",
+      "ben robot değilim",
+      "güvenlik doğrulaması gerekiyor"
+    ],
+    "cloudflare_text_indicators": [
+      "checking your browser",
+      "tarayıcınız kontrol ediliyor",
+      "just a moment",
+      "please wait while we",
+      "cf-chl-bypass",
+      "__cf_chl_",
+      "cf_chl_prog",
+      "challenge-running",
+      "challenge-form"
+    ],
+    "overlay_selectors": [
+      "[class*=\"captcha-overlay\"]",
+      "[class*=\"captcha-modal\"]",
+      "[class*=\"verification-overlay\"]",
+      "[class*=\"verification-modal\"]",
+      "[class*=\"security-check\"]",
+      "[class*=\"challenge-overlay\"]",
+      "[class*=\"human-check\"]",
+      "[class*=\"security-overlay\"]",
+      "[id*=\"captcha-overlay\"]",
+      "[id*=\"captcha-modal\"]",
+      "[id*=\"verification\"]",
+      "[class*=\"press-hold\"]",
+      "[class*=\"hold-button\"]",
+      "[class*=\"verify-button\"]",
+      "button[class*=\"verify\"]",
+      "[data-action=\"verify\"]",
+      "[data-captcha]",
+      "[data-sitekey]",
+      "[class*=\"cf-turnstile\"]",
+      "iframe[src*=\"challenges.cloudflare.com\"]",
+      "[id*=\"cf-chl\"]",
+      "[class*=\"cf-chl\"]",
+      "div[data-turnstile]",
+      "[class*=\"h-captcha\"]",
+      "iframe[src*=\"hcaptcha.com\"]",
+      "[data-hcaptcha]",
+      "[class*=\"g-recaptcha\"][data-size=\"invisible\"]",
+      "iframe[src*=\"recaptcha/api2/anchor\"]",
+      "iframe[src*=\"recaptcha/api2/bframe\"]",
+      "div[data-sitekey][class*=\"g-recaptcha\"]",
+      "[class*=\"modal\"][class*=\"captcha\"]",
+      "[class*=\"modal\"][class*=\"verify\"]",
+      "[class*=\"overlay\"][class*=\"security\"]",
+      "[role=\"dialog\"][class*=\"captcha\"]",
+      "[role=\"dialog\"][class*=\"verify\"]",
+      "div[class*=\"challenge-container\"]",
+      "div[id*=\"challenge-container\"]",
+      "div[class*=\"captcha-container\"]",
+      "div[id*=\"captcha-container\"]",
+      "div[class*=\"security-challenge\"]",
+      "div[id*=\"security-challenge\"]",
+      "div[class*=\"verification-challenge\"]",
+      "div[id*=\"verification-challenge\"]",
+      "form[class*=\"captcha-form\"]",
+      "form[id*=\"captcha-form\"]"
+    ],
+    "checkbox_selectors": [
+      ".recaptcha-checkbox",
+      ".hcaptcha-checkbox",
+      "[role=\"checkbox\"]",
+      "[aria-label*=\"robot\"]",
+      "[aria-label*=\"I'm not a robot\"]"
+    ],
+    "press_hold_texts": [
+      "butona basılı tut",
+      "press and hold",
+      "hold the button",
+      "basılı tutun"
+    ],
+    "sms_texts": [
+      "sms doğrulama",
+      "telefon doğrulama",
+      "doğrulama kodu girin",
+      "verification code"
+    ],
+    "canvas_min_size": 150
+  }
+}
