@@ -1,0 +1,218 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "last_updated": "2025-01-18"
+  },
+  "listing_row": {
+    "strategy_1_data_id": {
+      "primary": "<tr[^>]*data-id=\"(\\d+)\"[^>]*>(.*?)</tr>",
+      "fallback": [
+        "<tr[^>]*data-listing-id=\"(\\d+)\"[^>]*>(.*?)</tr>",
+        "<div[^>]*data-id=\"(\\d+)\"[^>]*class=\"[^\"]*listing[^\"]*\"[^>]*>(.*?)</div>"
+      ],
+      "flags": ["DOTALL", "IGNORECASE"]
+    },
+    "strategy_2_class": {
+      "primary": "<tr[^>]*class=\"[^\"]*searchResultsItem[^\"]*\"[^>]*>(.*?)</tr>",
+      "fallback": [
+        "<tr[^>]*class=\"[^\"]*classifiedItem[^\"]*\"[^>]*>(.*?)</tr>",
+        "<tr[^>]*class=\"[^\"]*listing-item[^\"]*\"[^>]*>(.*?)</tr>"
+      ],
+      "flags": ["DOTALL", "IGNORECASE"]
+    },
+    "strategy_3_div": {
+      "primary": "<div[^>]*class=\"[^\"]*classified-list-item[^\"]*\"[^>]*>(.*?)</div>\\s*</div>",
+      "fallback": [
+        "<div[^>]*class=\"[^\"]*searchResultsItem[^\"]*\"[^>]*>(.*?)</div>",
+        "<article[^>]*class=\"[^\"]*listing[^\"]*\"[^>]*>(.*?)</article>"
+      ],
+      "flags": ["DOTALL", "IGNORECASE"]
+    },
+    "data_id_extractor": {
+      "primary": "data-id=\"(\\d+)\"",
+      "fallback": [
+        "data-listing-id=\"(\\d+)\"",
+        "data-classified-id=\"(\\d+)\""
+      ],
+      "flags": ["IGNORECASE"]
+    }
+  },
+  "title_url": {
+    "pattern_1_href_first": {
+      "primary": "<a[^>]*href=\"([^\"]+)\"[^>]*class=\"[^\"]*classifiedTitle[^\"]*\"[^>]*>\\s*(.*?)\\s*</a>",
+      "fallback": [
+        "<a[^>]*href=\"([^\"]+)\"[^>]*class=\"[^\"]*listing-title[^\"]*\"[^>]*>\\s*(.*?)\\s*</a>",
+        "<a[^>]*href=\"([^\"]+)\"[^>]*class=\"[^\"]*titleLink[^\"]*\"[^>]*>\\s*(.*?)\\s*</a>"
+      ],
+      "flags": ["DOTALL", "IGNORECASE"],
+      "groups": {"url": 1, "title": 2}
+    },
+    "pattern_2_class_first": {
+      "primary": "<a[^>]*class=\"[^\"]*classifiedTitle[^\"]*\"[^>]*href=\"([^\"]+)\"[^>]*>\\s*(.*?)\\s*</a>",
+      "fallback": [
+        "<a[^>]*class=\"[^\"]*listing-title[^\"]*\"[^>]*href=\"([^\"]+)\"[^>]*>\\s*(.*?)\\s*</a>"
+      ],
+      "flags": ["DOTALL", "IGNORECASE"],
+      "groups": {"url": 1, "title": 2}
+    },
+    "pattern_3_ilan_href": {
+      "primary": "<a[^>]*href=\"(/ilan/{id}[^\"]*)\"[^>]*>([^<]+)</a>",
+      "fallback": [
+        "<a[^>]*href=\"(/listing/{id}[^\"]*)\"[^>]*>([^<]+)</a>"
+      ],
+      "flags": ["IGNORECASE"],
+      "groups": {"url": 1, "title": 2}
+    },
+    "pattern_4_title_attr": {
+      "primary": "<a[^>]*href=\"(/ilan/\\d+[^\"]*)\"[^>]*title=\"([^\"]+)\"",
+      "fallback": [
+        "<a[^>]*href=\"(/[^\"]*\\d+[^\"]*)\"[^>]*title=\"([^\"]+)\""
+      ],
+      "flags": ["IGNORECASE"],
+      "groups": {"url": 1, "title": 2}
+    },
+    "pattern_5_generic": {
+      "primary": "href=\"(/ilan/\\d+[^\"]*)\"",
+      "fallback": [
+        "href=\"(/listing/\\d+[^\"]*)\"",
+        "href=\"([^\"]*classified[^\"]*\\d+[^\"]*)\""
+      ],
+      "flags": ["IGNORECASE"],
+      "groups": {"url": 1}
+    },
+    "title_attribute": {
+      "primary": "title=\"([^\"]+)\"",
+      "fallback": [],
+      "flags": []
+    }
+  },
+  "price": {
+    "pattern_1_td_class": {
+      "primary": "<td[^>]*class=\"[^\"]*searchResultsPriceValue[^\"]*\"[^>]*>\\s*([\\d.,]+)\\s*(?:TL|₺)?",
+      "fallback": [
+        "<td[^>]*class=\"[^\"]*priceValue[^\"]*\"[^>]*>\\s*([\\d.,]+)\\s*(?:TL|₺)?",
+        "<td[^>]*class=\"[^\"]*price[^\"]*\"[^>]*>\\s*([\\d.,]+)\\s*(?:TL|₺)?"
+      ],
+      "flags": ["IGNORECASE"]
+    },
+    "pattern_2_span_class": {
+      "primary": "<span[^>]*class=\"[^\"]*price[^\"]*\"[^>]*>\\s*([\\d.,]+)\\s*(?:TL|₺)?",
+      "fallback": [
+        "<div[^>]*class=\"[^\"]*price[^\"]*\"[^>]*>\\s*([\\d.,]+)\\s*(?:TL|₺)?"
+      ],
+      "flags": ["IGNORECASE"]
+    },
+    "pattern_3_data_attr": {
+      "primary": "data-price=\"(\\d+)\"",
+      "fallback": [
+        "data-amount=\"(\\d+)\"",
+        "data-value=\"(\\d+)\""
+      ],
+      "flags": ["IGNORECASE"]
+    },
+    "pattern_4_tl_generic": {
+      "primary": "([\\d]{1,3}(?:[.,]\\d{3})*)\\s*(?:TL|₺)",
+      "fallback": [],
+      "flags": ["IGNORECASE"]
+    }
+  },
+  "location": {
+    "pattern_1_td_class": {
+      "primary": "<td[^>]*class=\"[^\"]*searchResultsLocationValue[^\"]*\"[^>]*>(.*?)</td>",
+      "fallback": [
+        "<td[^>]*class=\"[^\"]*locationValue[^\"]*\"[^>]*>(.*?)</td>",
+        "<td[^>]*class=\"[^\"]*location[^\"]*\"[^>]*>(.*?)</td>"
+      ],
+      "flags": ["DOTALL", "IGNORECASE"]
+    },
+    "pattern_2_div_class": {
+      "primary": "<div[^>]*class=\"[^\"]*location[^\"]*\"[^>]*>(.*?)</div>",
+      "fallback": [
+        "<span[^>]*class=\"[^\"]*location[^\"]*\"[^>]*>(.*?)</span>"
+      ],
+      "flags": ["DOTALL", "IGNORECASE"]
+    },
+    "pattern_3_city_names": {
+      "primary": "<span[^>]*>([^<]*(?:İstanbul|Ankara|İzmir|Bursa|Antalya|Adana|Konya|Gaziantep|Kocaeli|Mersin)[^<]*)</span>",
+      "fallback": [],
+      "flags": ["IGNORECASE"]
+    }
+  },
+  "image": {
+    "pattern_1_data_src": {
+      "primary": "<img[^>]*data-src=\"([^\"]+)\"[^>]*class=\"[^\"]*classifiedImage",
+      "fallback": [
+        "<img[^>]*data-src=\"([^\"]+)\"[^>]*class=\"[^\"]*listing-image",
+        "<img[^>]*data-lazy=\"([^\"]+)\"[^>]*class=\"[^\"]*classifiedImage"
+      ],
+      "flags": ["IGNORECASE"]
+    },
+    "pattern_2_src": {
+      "primary": "<img[^>]*src=\"([^\"]+)\"[^>]*class=\"[^\"]*classifiedImage",
+      "fallback": [
+        "<img[^>]*src=\"([^\"]+)\"[^>]*class=\"[^\"]*listing-image"
+      ],
+      "flags": ["IGNORECASE"]
+    },
+    "pattern_3_class_first": {
+      "primary": "<img[^>]*class=\"[^\"]*classifiedImage[^\"]*\"[^>]*(?:data-src|src)=\"([^\"]+)\"",
+      "fallback": [
+        "<img[^>]*class=\"[^\"]*listing-image[^\"]*\"[^>]*(?:data-src|src)=\"([^\"]+)\""
+      ],
+      "flags": ["IGNORECASE"]
+    },
+    "pattern_4_generic": {
+      "primary": "<img[^>]*(?:data-src|src)=\"([^\"]+\\.(?:jpg|jpeg|png|webp))\"",
+      "fallback": [],
+      "flags": ["IGNORECASE"]
+    }
+  },
+  "room_count": {
+    "pattern_1_td_class": {
+      "primary": "<td[^>]*class=\"[^\"]*searchResultsAttributeValue[^\"]*\"[^>]*>\\s*(\\d\\+\\d|\\d)\\s*</td>",
+      "fallback": [
+        "<td[^>]*class=\"[^\"]*attributeValue[^\"]*\"[^>]*>\\s*(\\d\\+\\d|\\d)\\s*</td>"
+      ],
+      "flags": ["IGNORECASE"]
+    },
+    "pattern_2_generic": {
+      "primary": "\\b(\\d\\s*\\+\\s*\\d)\\b",
+      "fallback": [],
+      "flags": []
+    }
+  },
+  "square_meters": {
+    "primary": "(\\d+)\\s*m²",
+    "fallback": [
+      "(\\d+)\\s*m2",
+      "(\\d+)\\s*metrekare"
+    ],
+    "flags": ["IGNORECASE"]
+  },
+  "date": {
+    "pattern_1_two_spans": {
+      "primary": "<td[^>]*class=\"[^\"]*searchResultsDateValue[^\"]*\"[^>]*>\\s*<span[^>]*>([^<]+)</span>\\s*<span[^>]*>([^<]+)</span>",
+      "fallback": [
+        "<td[^>]*class=\"[^\"]*dateValue[^\"]*\"[^>]*>\\s*<span[^>]*>([^<]+)</span>\\s*<span[^>]*>([^<]+)</span>"
+      ],
+      "flags": ["IGNORECASE"]
+    },
+    "pattern_2_date_class": {
+      "primary": "<span[^>]*class=\"[^\"]*date[^\"]*\"[^>]*>([^<]+)</span>",
+      "fallback": [
+        "<time[^>]*>([^<]+)</time>"
+      ],
+      "flags": ["IGNORECASE"]
+    }
+  },
+  "utility": {
+    "html_tags": "<[^>]+>",
+    "whitespace": "\\s+",
+    "id_from_url": "/ilan/(\\d+)",
+    "id_from_query": "[?&]id=(\\d+)"
+  },
+  "validation": {
+    "min_price": 1000,
+    "min_html_length": 500
+  }
+}
